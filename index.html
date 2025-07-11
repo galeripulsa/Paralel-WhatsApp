@@ -1,32 +1,31 @@
-<!-- Modal Fullscreen -->
-<div id="modalParalel" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm overflow-y-auto flex items-center justify-center px-4 py-6 hidden">
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 relative">
+<!-- ✅ Modal Paralel WhatsApp -->
+<div id="modalParalel" class="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm overflow-y-auto flex items-start sm:items-center justify-center px-4 py-8 hidden">
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 relative">
 
-    <!-- Tombol tutup -->
-    <button onclick="document.getElementById('modalParalel').classList.add('hidden')" 
-      class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold transition">
+    <!-- Tombol Tutup -->
+    <button onclick="document.getElementById('modalParalel').classList.add('hidden')"
+      class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl font-bold">
       &times;
     </button>
 
-    <!-- Header -->
-    <div class="text-center mt-2 mb-6">
-      <h2 class="text-2xl font-extrabold text-gray-800">Paralel WhatsApp</h2>
-      <p class="text-sm text-gray-600">Masukkan nomor dan PIN untuk kirim perintah ke WhatsApp</p>
-    </div>
+    <!-- Judul -->
+    <h2 class="text-xl font-bold text-gray-800 mb-1">Paralel WhatsApp</h2>
+    <p class="text-sm text-gray-600 mb-5">Masukkan data nomor dan PIN untuk kirim perintah ke WhatsApp.</p>
 
-    <!-- Form Paralel -->
-    <form id="formParalel" class="space-y-6">
-      
+    <!-- ✅ FORM -->
+    <form id="formParalel" class="space-y-4">
       <!-- Input Nomor WA -->
       <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Nomor WhatsApp Baru</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp Baru</label>
         <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600 text-lg">📱</span>
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">
+            <i class="fa fa-phone"></i>
+          </span>
           <input
-            type="text"
             id="waNumber"
+            type="text"
             placeholder="Contoh: 6281234567890"
-            class="pl-10 w-full py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 text-sm transition"
+            class="pl-10 w-full py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             oninput="this.value = this.value.replace(/[^0-9]/g, ''); validateParalelForm()"
           />
         </div>
@@ -34,14 +33,16 @@
 
       <!-- Input PIN -->
       <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">PIN Transaksi</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">PIN Transaksi</label>
         <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-yellow-600 text-lg">🔐</span>
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-yellow-500">
+            <i class="fa fa-lock"></i>
+          </span>
           <input
-            type="text"
             id="waPin"
+            type="text"
             placeholder="Masukkan PIN (min. 4 karakter)"
-            class="pl-10 w-full py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 text-sm transition"
+            class="pl-10 w-full py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); validateParalelForm()"
           />
         </div>
@@ -52,8 +53,8 @@
         id="btnKirimWA"
         type="button"
         onclick="kirimParalelWA()"
-        class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         disabled
+        class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Kirim ke WhatsApp
       </button>
@@ -61,6 +62,7 @@
   </div>
 </div>
 
+<!-- ✅ Script Validasi & Kirim -->
 <script>
   function validateParalelForm() {
     const nomor = document.getElementById("waNumber").value.trim();
@@ -82,9 +84,9 @@
     }
 
     const tujuan = "6282188890720";
-    const formatPesan = `TWA.${nomor}.${pin}`;
-    const url = `https://wa.me/${tujuan}?text=${encodeURIComponent(formatPesan)}`;
+    const pesan = `TWA.${nomor}.${pin}`;
+    const link = `https://wa.me/${tujuan}?text=${encodeURIComponent(pesan)}`;
 
-    window.open(url, "_blank");
+    window.open(link, "_blank");
   }
 </script>
