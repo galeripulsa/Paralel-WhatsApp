@@ -1,8 +1,9 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mandiri Cell - Paralel WhatsApp</title>
+  <title>Paralel WhatsApp - Mandiri Cell</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     * {
@@ -43,8 +44,9 @@
       box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     }
     .intro-text {
-      margin-top: -30px;
+      margin-top: -20px;
       padding-top: 0;
+      text-align: center;
     }
     .form-group {
       margin-bottom: 18px;
@@ -64,10 +66,11 @@
       transform: translateY(-50%);
       color: #aaa;
       font-size: 16px;
+      transition: color 0.3s ease;
     }
     .input-icon input {
       width: 100%;
-      padding: 10px 12px 10px 48px;
+      padding: 10px 12px 10px 44px;
       border: 2px solid #ccc;
       border-radius: 8px;
       font-size: 15px;
@@ -75,39 +78,32 @@
       line-height: 1.4;
       background: #fff;
       color: #000;
+      transition: border-color 0.3s ease;
     }
     .input-icon input::placeholder {
       color: #555;
       opacity: 1;
     }
-
-    .input-icon input:focus {
-      border-color: #00b4d2;
-      box-shadow: 0 0 0 2px rgba(0,180,210,0.3);
-    }
-
-    .input-icon.filled input {
-     border-color: #00b4d2;
-    }
-
     .input-icon.filled i {
-     color: #00b4d2;
+      color: #00b4d2;
     }
-    
+    .input-icon.filled input {
+      border-color: #00b4d2;
+    }
     button {
       width: 100%;
       padding: 12px;
-      background: #FFD200;
-      color: black;
+      background: #28a745;
+      color: white;
       font-weight: bold;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 16px;
     }
     button:disabled {
       background: #ccc;
       cursor: not-allowed;
-      color: #fff;
     }
     footer {
       text-align: center;
@@ -118,59 +114,76 @@
     }
   </style>
 </head>
-<body><header>
+<body>
+
+<header>
   <img src="Logo Mandiri Cell.jpg" alt="Mandiri Cell Logo" />
-  <h2>Paralel WhatsApp</h2>
-  <p><marquee>Gunakan fitur ini untuk menggandakan nomor transaksi Anda di WhatsApp.</marquee></p>
+  <h2>Mandiri Cell Multi Payment</h2>
+  <p><marquee>Paralel WhatsApp untuk transaksi Galeri Pulsa</marquee></p>
   <p><strong>Support Aplikasi Galeri Pulsa</strong></p>
-</header><div class="container">
+</header>
+
+<div class="container">
   <form id="formParalel">
     <div class="intro-text">
-      <h2>Paralel Nomor WhatsApp</h2>
+      <h2>Paralel WhatsApp</h2>
       <p>Masukkan nomor dan PIN untuk kirim perintah ke WhatsApp.</p>
-    </div><div class="form-group">
-  <label for="waNumber">Nomor WhatsApp Baru</label>
-  <div class="input-icon">
-    <i class="fas fa-phone"></i>
-    <input type="text" id="waNumber" placeholder="Contoh: 6281234567890" required />
-  </div>
-</div>
+    </div>
 
-<div class="form-group">
-  <label for="waPin">PIN Transaksi</label>
-  <div class="input-icon">
-    <i class="fas fa-lock"></i>
-    <input type="text" id="waPin" placeholder="Masukkan PIN 
-" required />
-  </div>
-</div>
+    <div class="form-group">
+      <label for="waNumber">Nomor WhatsApp Baru</label>
+      <div class="input-icon">
+        <i class="fas fa-phone"></i>
+        <input
+          type="text"
+          id="waNumber"
+          placeholder="Contoh: 6281234567890"
+          oninput="this.value = this.value.replace(/[^0-9]/g, ''); validateParalelForm(); updateFilled(this);"
+          required
+        />
+      </div>
+    </div>
 
-<button type="submit" id="submitBtn" disabled>Kirim ke WhatsApp</button>
+    <div class="form-group">
+      <label for="waPin">PIN Transaksi</label>
+      <div class="input-icon">
+        <i class="fas fa-lock"></i>
+        <input
+          type="text"
+          id="waPin"
+          placeholder="Masukkan PIN (min. 4 karakter)"
+          oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); validateParalelForm(); updateFilled(this);"
+          required
+        />
+      </div>
+    </div>
 
+    <button type="submit" id="btnKirimWA" disabled>Kirim ke WhatsApp</button>
   </form>
-</div><footer>
-  &copy; 2025 Mandiri Cell - All Rights Reserved
-</footer><script>
-  const submitBtn = document.getElementById("submitBtn");
+</div>
 
-  const validateForm = () => {
+<footer>
+  &copy; 2025 Mandiri Cell - All Rights Reserved
+</footer>
+
+<script>
+  function validateParalelForm() {
     const nomor = document.getElementById("waNumber").value.trim();
     const pin = document.getElementById("waPin").value.trim();
-    const valid = /^[0-9]{10,}$/.test(nomor) && /^[a-zA-Z0-9]{4,}$/.test(pin);
-    submitBtn.disabled = !valid;
-  };
+    const btn = document.getElementById("btnKirimWA");
 
-  document.getElementById("waNumber").addEventListener("input", (e) => {
-    e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    validateForm();
-  });
+    const isNomorValid = nomor.length >= 10;
+    const isPinValid = /^[a-zA-Z0-9]{4,}$/.test(pin);
 
-  document.getElementById("waPin").addEventListener("input", (e) => {
-    e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
-    validateForm();
-  });
+    btn.disabled = !(isNomorValid && isPinValid);
+  }
 
-  document.getElementById("formParalel").addEventListener("submit", (e) => {
+  function updateFilled(input) {
+    const wrapper = input.closest(".input-icon");
+    wrapper.classList.toggle("filled", input.value.trim() !== "");
+  }
+
+  document.getElementById("formParalel").addEventListener("submit", function(e) {
     e.preventDefault();
     let nomor = document.getElementById("waNumber").value.trim();
     const pin = document.getElementById("waPin").value.trim();
@@ -179,8 +192,12 @@
       nomor = "628" + nomor.slice(2);
     }
 
-    const wa = `https://wa.me/6282188890720?text=${encodeURIComponent(`TWA.${nomor}.${pin}`)}`;
-    window.open(wa, "_blank");
+    const tujuan = "6282188890720";
+    const formatPesan = `TWA.${nomor}.${pin}`;
+    const url = `https://wa.me/${tujuan}?text=${encodeURIComponent(formatPesan)}`;
+    window.open(url, "_blank");
   });
-</script></body>
+</script>
+
+</body>
 </html>
