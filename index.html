@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Paralel WhatsApp - Kirim ke IP</title>
+  <title>Paralel WhatsApp - Mandiri Cell</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom right, #ffffff);
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
     header {
       background: #FFD200;
@@ -82,15 +85,15 @@
       opacity: 1;
     }
     .input-icon.filled i {
-      color: #00b4d2;
+      color: #28a745;
     }
     .input-icon.filled input {
-      border-color: #00b4d2;
+      border-color: #28a745;
     }
     button {
       width: 100%;
       padding: 12px;
-      background: #007bff;
+      background: #28a745;
       color: white;
       font-weight: bold;
       border: none;
@@ -116,7 +119,7 @@
 <header>
   <img src="Logo Mandiri Cell.jpg" alt="Mandiri Cell Logo" />
   <h2>Mandiri Cell Multi Payment</h2>
-  <p><marquee>Form Paralel WhatsApp Kirim ke IP Server</marquee></p>
+  <p><marquee>Paralel WhatsApp untuk transaksi Galeri Pulsa</marquee></p>
   <p><strong>Support Aplikasi Galeri Pulsa</strong></p>
 </header>
 
@@ -124,7 +127,7 @@
   <form id="formParalel">
     <div class="intro-text">
       <h2>Paralel WhatsApp</h2>
-      <p>Kirim format ke server IP: <strong>103.253.27.109:7578</strong></p>
+      <p>Masukkan nomor dan PIN untuk kirim perintah ke WhatsApp.</p>
     </div>
 
     <div class="form-group">
@@ -148,14 +151,14 @@
         <input
           type="text"
           id="waPin"
-          placeholder="Masukkan PIN (min. 4 karakter)"
+          placeholder="Masukkan PIN Anda"
           oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); validateParalelForm(); updateFilled(this);"
           required
         />
       </div>
     </div>
 
-    <button type="submit" id="btnKirimWA" disabled>Kirim ke Server IP</button>
+    <button type="submit" id="btnKirimWA" disabled>Kirim ke WhatsApp</button>
   </form>
 </div>
 
@@ -180,20 +183,6 @@
     wrapper.classList.toggle("filled", input.value.trim() !== "");
   }
 
-  function kirimParalelIP(nomor, pin) {
-    const formatPesan = `TWA.${nomor}.${pin}`;
-    const ipUrl = `http://103.253.27.109:7578?msg=${encodeURIComponent(formatPesan)}`;
-
-    fetch(ipUrl)
-      .then(res => res.text())
-      .then(response => {
-        alert("Pesan berhasil dikirim ke IP Server:\n" + response);
-      })
-      .catch(error => {
-        alert("Gagal kirim ke IP:\n" + error);
-      });
-  }
-
   document.getElementById("formParalel").addEventListener("submit", function(e) {
     e.preventDefault();
     let nomor = document.getElementById("waNumber").value.trim();
@@ -203,7 +192,10 @@
       nomor = "628" + nomor.slice(2);
     }
 
-    kirimParalelIP(nomor, pin);
+    const tujuan = "6282188890720";
+    const formatPesan = `TWA.${nomor}.${pin}`;
+    const url = `https://wa.me/${tujuan}?text=${encodeURIComponent(formatPesan)}`;
+    window.open(url, "_blank");
   });
 </script>
 
