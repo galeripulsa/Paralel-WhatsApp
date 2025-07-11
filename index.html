@@ -80,12 +80,20 @@
       color: #555;
       opacity: 1;
     }
-    .input-icon.filled i {
-      color: #00b4d2;
-    }
-    .input-icon.filled input {
+
+    .input-icon input:focus {
       border-color: #00b4d2;
+      box-shadow: 0 0 0 2px rgba(0,180,210,0.3);
     }
+
+    .input-icon.filled input {
+     border-color: #00b4d2;
+    }
+
+    .input-icon.filled i {
+     color: #00b4d2;
+    }
+    
     button {
       width: 100%;
       padding: 12px;
@@ -132,7 +140,8 @@
   <label for="waPin">PIN Transaksi</label>
   <div class="input-icon">
     <i class="fas fa-lock"></i>
-    <input type="text" id="waPin" placeholder="Masukkan PIN (min. 4 karakter)" required />
+    <input type="text" id="waPin" placeholder="Masukkan PIN 
+" required />
   </div>
 </div>
 
