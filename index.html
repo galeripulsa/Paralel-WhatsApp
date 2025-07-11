@@ -1,37 +1,32 @@
-
-
 <!-- Modal Fullscreen -->
-<div id="modalParalel" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm overflow-y-auto flex items-start sm:items-center justify-center px-4 py-6 hidden">
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6 relative">
+<div id="modalParalel" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm overflow-y-auto flex items-center justify-center px-4 py-6 hidden">
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 relative">
 
     <!-- Tombol tutup -->
     <button onclick="document.getElementById('modalParalel').classList.add('hidden')" 
-      class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-xl font-bold">
+      class="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-2xl font-bold transition">
       &times;
     </button>
 
-  <!-- Tes -->
-    <div class="container">
-  <form id="formParalel">
-    <div class="intro-text">
-      <h2>Paralel Nomor WhatsApp</h2>
-      <p>Masukkan Nomor WhatsApp Yang Akan Anda Gunakan Transaksi.</p>
+    <!-- Header -->
+    <div class="text-center mt-2 mb-6">
+      <h2 class="text-2xl font-extrabold text-gray-800">Paralel WhatsApp</h2>
+      <p class="text-sm text-gray-600">Masukkan nomor dan PIN untuk kirim perintah ke WhatsApp</p>
     </div>
 
-  
-
     <!-- Form Paralel -->
-    <div class="space-y-5">
+    <form id="formParalel" class="space-y-6">
+      
       <!-- Input Nomor WA -->
       <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Masukkan Nomor WhatsApp Baru</label>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">Nomor WhatsApp Baru</label>
         <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">📱</span>
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600 text-lg">📱</span>
           <input
             type="text"
             id="waNumber"
             placeholder="Contoh: 6281234567890"
-            class="pl-10 w-full py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            class="pl-10 w-full py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 text-sm transition"
             oninput="this.value = this.value.replace(/[^0-9]/g, ''); validateParalelForm()"
           />
         </div>
@@ -39,14 +34,14 @@
 
       <!-- Input PIN -->
       <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Masukkan PIN Transaksi Anda</label>
+        <label class="block text-sm font-semibold text-gray-700 mb-1">PIN Transaksi</label>
         <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-yellow-600">🔐</span>
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-yellow-600 text-lg">🔐</span>
           <input
             type="text"
             id="waPin"
             placeholder="Masukkan PIN (min. 4 karakter)"
-            class="pl-10 w-full py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            class="pl-10 w-full py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 text-sm transition"
             oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); validateParalelForm()"
           />
         </div>
@@ -55,13 +50,14 @@
       <!-- Tombol Kirim -->
       <button
         id="btnKirimWA"
+        type="button"
         onclick="kirimParalelWA()"
-        class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         disabled
       >
         Kirim ke WhatsApp
       </button>
-    </div>
+    </form>
   </div>
 </div>
 
