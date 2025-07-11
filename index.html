@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Paralel WhatsApp - Mandiri Cell</title>
+  <title>Paralel WhatsApp - Kirim ke IP</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom right, #ffffff);
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
     }
     header {
       background: #FFD200;
@@ -93,7 +90,7 @@
     button {
       width: 100%;
       padding: 12px;
-      background: #28a745;
+      background: #007bff;
       color: white;
       font-weight: bold;
       border: none;
@@ -119,7 +116,7 @@
 <header>
   <img src="Logo Mandiri Cell.jpg" alt="Mandiri Cell Logo" />
   <h2>Mandiri Cell Multi Payment</h2>
-  <p><marquee>Paralel WhatsApp untuk transaksi Galeri Pulsa</marquee></p>
+  <p><marquee>Form Paralel WhatsApp Kirim ke IP Server</marquee></p>
   <p><strong>Support Aplikasi Galeri Pulsa</strong></p>
 </header>
 
@@ -127,7 +124,7 @@
   <form id="formParalel">
     <div class="intro-text">
       <h2>Paralel WhatsApp</h2>
-      <p>Masukkan nomor dan PIN untuk kirim perintah ke server & WhatsApp.</p>
+      <p>Kirim format ke server IP: <strong>103.253.27.109:7578</strong></p>
     </div>
 
     <div class="form-group">
@@ -158,7 +155,7 @@
       </div>
     </div>
 
-    <button type="submit" id="btnKirimWA" disabled>Kirim Sekarang</button>
+    <button type="submit" id="btnKirimWA" disabled>Kirim ke Server IP</button>
   </form>
 </div>
 
@@ -183,13 +180,6 @@
     wrapper.classList.toggle("filled", input.value.trim() !== "");
   }
 
-  function kirimParalelWA(nomor, pin) {
-    const tujuan = "6282188890720";
-    const formatPesan = `TWA.${nomor}.${pin}`;
-    const waLink = `https://wa.me/${tujuan}?text=${encodeURIComponent(formatPesan)}`;
-    window.open(waLink, "_blank");
-  }
-
   function kirimParalelIP(nomor, pin) {
     const formatPesan = `TWA.${nomor}.${pin}`;
     const ipUrl = `http://103.253.27.109:7578?msg=${encodeURIComponent(formatPesan)}`;
@@ -197,10 +187,10 @@
     fetch(ipUrl)
       .then(res => res.text())
       .then(response => {
-        console.log("Respon dari IP:", response);
+        alert("Pesan berhasil dikirim ke IP Server:\n" + response);
       })
       .catch(error => {
-        console.error("Gagal kirim ke IP:", error);
+        alert("Gagal kirim ke IP:\n" + error);
       });
   }
 
@@ -213,9 +203,7 @@
       nomor = "628" + nomor.slice(2);
     }
 
-    // Kirim ke IP & WhatsApp
     kirimParalelIP(nomor, pin);
-    kirimParalelWA(nomor, pin);
   });
 </script>
 
