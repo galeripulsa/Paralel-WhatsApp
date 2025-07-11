@@ -1,81 +1,168 @@
-<!-- ✅ Modal Paralel WhatsApp -->
-<div id="modalParalel" class="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm overflow-y-auto flex items-start sm:items-center justify-center px-4 py-8 hidden">
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 relative">
-
-    <!-- Tombol Tutup -->
-    <button onclick="document.getElementById('modalParalel').classList.add('hidden')"
-      class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl font-bold">
-      &times;
-    </button>
-
-    <!-- Judul -->
-    <h2 class="text-xl font-bold text-gray-800 mb-1">Paralel WhatsApp</h2>
-    <p class="text-sm text-gray-600 mb-5">Masukkan data nomor dan PIN untuk kirim perintah ke WhatsApp.</p>
-
-    <!-- ✅ FORM -->
-    <form id="formParalel" class="space-y-4">
-      <!-- Input Nomor WA -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor WhatsApp Baru</label>
-        <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">
-            <i class="fa fa-phone"></i>
-          </span>
-          <input
-            id="waNumber"
-            type="text"
-            placeholder="Contoh: 6281234567890"
-            class="pl-10 w-full py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-            oninput="this.value = this.value.replace(/[^0-9]/g, ''); validateParalelForm()"
-          />
-        </div>
-      </div>
-
-      <!-- Input PIN -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">PIN Transaksi</label>
-        <div class="relative">
-          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-yellow-500">
-            <i class="fa fa-lock"></i>
-          </span>
-          <input
-            id="waPin"
-            type="text"
-            placeholder="Masukkan PIN (min. 4 karakter)"
-            class="pl-10 w-full py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-            oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/g, ''); validateParalelForm()"
-          />
-        </div>
-      </div>
-
-      <!-- Tombol Kirim -->
-      <button
-        id="btnKirimWA"
-        type="button"
-        onclick="kirimParalelWA()"
-        disabled
-        class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        Kirim ke WhatsApp
-      </button>
-    </form>
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mandiri Cell - Paralel WhatsApp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #FFD200;
+      color: black;
+      text-align: center;
+      padding: 10px 15px;
+      line-height: 1.2;
+    }
+    header img {
+      max-width: 55px;
+      margin-bottom: 5px;
+    }
+    header h2 {
+      margin: 4px 0;
+      font-size: 23px;
+    }
+    header p {
+      margin: 3px 0;
+      font-size: 13px;
+    }
+    .container {
+      width: 90%;
+      max-width: 400px;
+      margin: 20px auto;
+      background: #DEEBFC;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .intro-text {
+      margin-top: -30px;
+      padding-top: 0;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    .input-icon {
+      position: relative;
+    }
+    .input-icon i {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      transform: translateY(-50%);
+      color: #aaa;
+      font-size: 16px;
+    }
+    .input-icon input {
+      width: 100%;
+      padding: 10px 12px 10px 48px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      height: 44px;
+      line-height: 1.4;
+      background: #fff;
+      color: #000;
+    }
+    .input-icon input::placeholder {
+      color: #555;
+      opacity: 1;
+    }
+    .input-icon.filled i {
+      color: #00b4d2;
+    }
+    .input-icon.filled input {
+      border-color: #00b4d2;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #FFD200;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      color: #fff;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #00b4d2;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body><header>
+  <img src="Logo Mandiri Cell.jpg" alt="Mandiri Cell Logo" />
+  <h2>Paralel WhatsApp</h2>
+  <p><marquee>Gunakan fitur ini untuk menggandakan nomor transaksi Anda di WhatsApp.</marquee></p>
+  <p><strong>Support Aplikasi Galeri Pulsa</strong></p>
+</header><div class="container">
+  <form id="formParalel">
+    <div class="intro-text">
+      <h2>Paralel Nomor WhatsApp</h2>
+      <p>Masukkan nomor dan PIN untuk kirim perintah ke WhatsApp.</p>
+    </div><div class="form-group">
+  <label for="waNumber">Nomor WhatsApp Baru</label>
+  <div class="input-icon">
+    <i class="fas fa-phone"></i>
+    <input type="text" id="waNumber" placeholder="Contoh: 6281234567890" required />
   </div>
 </div>
 
-<!-- ✅ Script Validasi & Kirim -->
-<script>
-  function validateParalelForm() {
+<div class="form-group">
+  <label for="waPin">PIN Transaksi</label>
+  <div class="input-icon">
+    <i class="fas fa-lock"></i>
+    <input type="text" id="waPin" placeholder="Masukkan PIN (min. 4 karakter)" required />
+  </div>
+</div>
+
+<button type="submit" id="submitBtn" disabled>Kirim ke WhatsApp</button>
+
+  </form>
+</div><footer>
+  &copy; 2025 Mandiri Cell - All Rights Reserved
+</footer><script>
+  const submitBtn = document.getElementById("submitBtn");
+
+  const validateForm = () => {
     const nomor = document.getElementById("waNumber").value.trim();
     const pin = document.getElementById("waPin").value.trim();
-    const btn = document.getElementById("btnKirimWA");
+    const valid = /^[0-9]{10,}$/.test(nomor) && /^[a-zA-Z0-9]{4,}$/.test(pin);
+    submitBtn.disabled = !valid;
+  };
 
-    const isNomorValid = nomor.length >= 10;
-    const isPinValid = /^[a-zA-Z0-9]{4,}$/.test(pin);
+  document.getElementById("waNumber").addEventListener("input", (e) => {
+    e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    validateForm();
+  });
 
-    btn.disabled = !(isNomorValid && isPinValid);
-  }
+  document.getElementById("waPin").addEventListener("input", (e) => {
+    e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+    validateForm();
+  });
 
-  function kirimParalelWA() {
+  document.getElementById("formParalel").addEventListener("submit", (e) => {
+    e.preventDefault();
     let nomor = document.getElementById("waNumber").value.trim();
     const pin = document.getElementById("waPin").value.trim();
 
@@ -83,10 +170,8 @@
       nomor = "628" + nomor.slice(2);
     }
 
-    const tujuan = "6282188890720";
-    const pesan = `TWA.${nomor}.${pin}`;
-    const link = `https://wa.me/${tujuan}?text=${encodeURIComponent(pesan)}`;
-
-    window.open(link, "_blank");
-  }
-</script>
+    const wa = `https://wa.me/6282188890720?text=${encodeURIComponent(`TWA.${nomor}.${pin}`)}`;
+    window.open(wa, "_blank");
+  });
+</script></body>
+</html>
